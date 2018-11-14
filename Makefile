@@ -15,3 +15,6 @@ build: clean deps
 
 cibuild: clean deps
 	for bin in ${BINARIES}; do eval "${CI_BUILD_FLAGS} ${BUILD_CMD} build/$$bin ./$$bin/main.go"; done
+
+test:
+	go test -coverprofile c.out -v ./...
