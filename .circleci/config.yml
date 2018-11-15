@@ -1,0 +1,30 @@
+version: 2
+
+defaults: &defaults
+  working_directory: /go/src/github.com/chungryan/fridge-temperatures-go
+  docker:
+    - image: circleci/golang:1.11.2
+
+jobs:
+  build-test:
+    <<: *defaults
+    steps:
+      - checkout
+
+      - run:
+          name: Install dependencies
+          command: make deps
+
+      - run:
+          name: Run unit tests
+          command: make test
+
+      - run:
+          name: Build
+          command: make cibuild
+
+workflows:
+  version: 2
+  deploy-workflow:
+    jobs:
+      - build-test
