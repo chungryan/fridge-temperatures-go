@@ -39,7 +39,48 @@ Resources:
                 httpMethod: POST
                 type: aws_proxy
                 uri: !Sub arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${ProcessFunction.Arn}/invocations
-              responses: {}
+              produces:
+                - application/json
+              responses:
+                200:
+                  description: List of statistic figures for the given input readings
+                  schema:
+                    $ref: '#/definitions/StatList'
+                400:
+                  description: An error occured
+                500:
+                  description: Unexpected error
+        definitions:
+          Readings:
+            type: array
+            items:
+              $ref: '#/definitions/Reading'
+          Reading:
+            type: object
+            properties:
+              id:
+                type: string
+              timestamp:
+                type: integer
+              temperature:
+                type: float
+          StatList:
+            type: array
+            items:
+              $ref: '#/definitions/StatRecord'
+          StatRecord:
+            type: object
+            properties:
+              id:
+                type: string
+              average:
+                type: float
+              median:
+                type: float
+              mode:
+                type: array
+                items:
+                  type: float
 
 Outputs:
   ProcessFunction:
