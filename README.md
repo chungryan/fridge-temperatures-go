@@ -1,5 +1,8 @@
 # Fridge Temperatures
 
+[![Maintainability](https://api.codeclimate.com/v1/badges/a81102c9082b22ff7166/maintainability)](https://codeclimate.com/github/chungryan/fridge-temperatures-go/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/a81102c9082b22ff7166/test_coverage)](https://codeclimate.com/github/chungryan/fridge-temperatures-go/test_coverage)
+
 This project is a demo of an API taking temperatures from fridge sensors and outputing some statistics around those figures. It is entirely written in Golang and deployable on AWS Lambda and API Gateway
 
 An example of input is:
