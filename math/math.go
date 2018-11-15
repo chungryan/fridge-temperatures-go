@@ -51,3 +51,41 @@ func Median(numbers []float64) (float64, error) {
 
 	return numbers[m], nil
 }
+
+// Mode returns the mode of the series
+func Mode(numbers []float64) ([]float64, error) {
+	if err := validateList(numbers); err != nil {
+		return nil, err
+	}
+
+	counts := map[float64]uint{}
+	for _, n := range numbers {
+		counts[n]++
+	}
+
+	countSeries := []float64{}
+	for _, c := range counts {
+		countSeries = append(countSeries, float64(c))
+	}
+
+	max, _ := Max(countSeries)
+
+	modes := []float64{}
+	for n, c := range counts {
+		if c == uint(max) {
+			modes = append(modes, n)
+		}
+	}
+
+	return Sort(modes), nil
+}
+
+// Max returns the max number of the series
+func Max(numbers []float64) (float64, error) {
+	if err := validateList(numbers); err != nil {
+		return 0, err
+	}
+
+	Sort(numbers)
+	return numbers[len(numbers)-1], nil
+}

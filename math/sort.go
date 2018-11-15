@@ -3,7 +3,7 @@ package math
 // Sort an array of floats by ascending order
 // The specifications didn't mention not to use a library for sorting but for the fun of the exercise,
 // I decided to implement to the well known merge sort algorithm
-func Sort(numbers []float64) {
+func Sort(numbers []float64) []float64 {
 	l := len(numbers)
 	if l > 1 {
 		m := l / 2
@@ -11,6 +11,8 @@ func Sort(numbers []float64) {
 		Sort(numbers[m:l])
 		mergeSort(numbers, m)
 	}
+
+	return numbers
 }
 
 // mergeSort two sub-arrays,

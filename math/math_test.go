@@ -1,6 +1,7 @@
 package math
 
 import (
+	"reflect"
 	"testing"
 )
 
@@ -172,6 +173,88 @@ func TestMedian(t *testing.T) {
 
 		if median != 0 {
 			t.Fatalf("Unexpected non zero avg: %.2f", median)
+		}
+	})
+}
+
+func TestMode(t *testing.T) {
+	t.Run("Single mode element", func(t *testing.T) {
+		numbers := []float64{5.5, 6.7, 7, 6.7}
+		mode, err := Mode(numbers)
+
+		if err != nil {
+			t.Fatalf("Unexpected error: %s", err.Error())
+		}
+
+		if !reflect.DeepEqual(mode, []float64{6.7}) {
+			t.Fatalf("Incorrect mode: %v", mode)
+		}
+	})
+
+	t.Run("Multiple mode element", func(t *testing.T) {
+		numbers := []float64{5.5, 3, 67.89, 3, 5.5, 9}
+		mode, err := Mode(numbers)
+
+		if err != nil {
+			t.Fatalf("Unexpected error: %s", err.Error())
+		}
+
+		if !reflect.DeepEqual(mode, []float64{3, 5.5}) {
+			t.Fatalf("Incorrect mode: %v", mode)
+		}
+	})
+
+	t.Run("Empty list", func(t *testing.T) {
+		numbers := []float64{}
+		mode, err := Mode(numbers)
+
+		if err == nil || err.Error() != "List of numbers cannot be empty" {
+			t.Fatalf("Expected empty list error but got: %v", err)
+		}
+
+		if mode != nil {
+			t.Fatalf("Unexpected mode: %v", mode)
+		}
+	})
+}
+
+func TestMax(t *testing.T) {
+	t.Run("Multiple numbers", func(t *testing.T) {
+		numbers := []float64{579.5, 3, 89.5}
+		max, err := Max(numbers)
+
+		if err != nil {
+			t.Fatalf("Unexpected error: %s", err.Error())
+		}
+
+		if max != 579.5 {
+			t.Fatalf("Incorrect max: %.2f", max)
+		}
+	})
+
+	t.Run("One number", func(t *testing.T) {
+		numbers := []float64{20}
+		max, err := Max(numbers)
+
+		if err != nil {
+			t.Fatalf("Unexpected error: %s", err.Error())
+		}
+
+		if max != 20 {
+			t.Fatalf("Incorrect max: %.2f", max)
+		}
+	})
+
+	t.Run("Empty list", func(t *testing.T) {
+		numbers := []float64{}
+		max, err := Max(numbers)
+
+		if err == nil || err.Error() != "List of numbers cannot be empty" {
+			t.Fatalf("Expected empty list error but got: %v", err)
+		}
+
+		if max != 0 {
+			t.Fatalf("Unexpected max: %v", max)
 		}
 	})
 }
