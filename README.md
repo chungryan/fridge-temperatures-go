@@ -175,3 +175,7 @@ On top of the enhanced logging, and especially if this microservice starts havin
 ### CircleCI Docker image
 
 I'm currently using a CircleCI prebuild Docker image for Golang. However this image does not have AWS CLI installed, which is why is in the CircleCI configs, making the build a little bit more time consuming. That could be easily improved by making a new image with this dependancy installed.
+
+### Domain name
+
+Currently there is no custom domain attached to the API Gateway resource, hence why we're using the generated url under amazon.com domain. We could easily setup a route 53 record, with even a base path mapping to make it all pretty.
