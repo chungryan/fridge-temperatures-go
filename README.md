@@ -106,8 +106,8 @@ REPORT RequestId: c381418d-f241-15b0-bc18-3ca13bbaf716	Duration: 1.72 ms	Billed 
 ```
 
 This project is configured to run on CircleCI [https://circleci.com/]. All you need to do if you have such an environment setup is making sure that
-1. you have your AWS credentials setup [https://circleci.com/docs/2.0/deployment-integrations/#aws] and the env
-2. you have the environment variable `AWS_BUCKET` added to the project, which would be the name of the bucket to upload the project artifact to (Go binaries)
+1. you have your AWS credentials setup [https://circleci.com/docs/2.0/deployment-integrations/#aws]
+2. and the environment variable `AWS_BUCKET` added to the project, which would be the name of the bucket to upload the project artifact to (Go binaries)
 
 ### Locally
 
