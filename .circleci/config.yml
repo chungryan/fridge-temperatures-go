@@ -12,6 +12,13 @@ jobs:
       - checkout
 
       - run:
+          name: Install awscli
+          command: |
+            sudo apt-get install python-pip python-dev build-essential
+            sudo pip install --upgrade pip
+            sudo pip install awscli
+
+      - run:
           name: Install dependencies
           command: make deps
 
