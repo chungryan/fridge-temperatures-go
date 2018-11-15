@@ -1,0 +1,18 @@
+version: "2"
+plugins:
+  duplication:
+    enabled: true
+  fixme:
+    enabled: true
+    config:
+      file_extensions: "go"
+  gofmt:
+    enabled: true
+  golint:
+    enabled: true
+    config:
+      min_confidence: 0.9
+  govet:
+    enabled: true
+exclude_patterns:
+  - "**/*_test.go"
