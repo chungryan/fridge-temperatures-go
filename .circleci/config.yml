@@ -6,7 +6,7 @@ defaults: &defaults
     - image: circleci/golang:1.11.2
 
 jobs:
-  build-test:
+  deploy:
     <<: *defaults
     steps:
       - checkout
@@ -21,10 +21,10 @@ jobs:
 
       - run:
           name: Build
-          command: make cibuild
+          command: make publish
 
 workflows:
   version: 2
   deploy-workflow:
     jobs:
-      - build-test
+      - deploy

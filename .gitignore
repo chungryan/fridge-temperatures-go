@@ -1,3 +1,5 @@
-build/
+build
 .idea
+packaged.yaml
+packaged.yml
 c.out
