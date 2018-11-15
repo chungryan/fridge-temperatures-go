@@ -71,6 +71,20 @@ func TestAverage(t *testing.T) {
 	})
 }
 
+func TestValidateList(t *testing.T) {
+	t.Run("Empty", func(t *testing.T) {
+		if err := validateList([]float64{}); err == nil || err.Error() != "List of numbers cannot be empty" {
+			t.Fatalf("Expected empty list error but got: %v", err)
+		}
+	})
+
+	t.Run("Not empty", func(t *testing.T) {
+		if err := validateList([]float64{4, 5}); err != nil {
+			t.Fatalf("Unexpected error: %v", err)
+		}
+	})
+}
+
 func TestRound(t *testing.T) {
 	t.Run("Integer", func(t *testing.T) {
 		round := Round(4)
@@ -104,6 +118,60 @@ func TestRound(t *testing.T) {
 		round := Round(67.45555)
 		if round != 67.46 {
 			t.Fatalf("Expected number to be rounded to 67.46 but got %f", round)
+		}
+	})
+}
+
+func TestMedian(t *testing.T) {
+	t.Run("Even number of elements", func(t *testing.T) {
+		numbers := []float64{6.78, 3.44, 8, 56, 2.7, 3}
+		median, err := Median(numbers)
+
+		if err != nil {
+			t.Fatalf("Unexpected error: %s", err.Error())
+		}
+
+		if median != 5.11 {
+			t.Fatalf("Incorrect median: %.2f", median)
+		}
+	})
+
+	t.Run("Odd number of elements", func(t *testing.T) {
+		numbers := []float64{98.3, 4, 5}
+		median, err := Median(numbers)
+
+		if err != nil {
+			t.Fatalf("Unexpected error: %s", err.Error())
+		}
+
+		if median != 5 {
+			t.Fatalf("Incorrect median: %.2f", median)
+		}
+	})
+
+	t.Run("One number", func(t *testing.T) {
+		numbers := []float64{78.67}
+		median, err := Median(numbers)
+
+		if err != nil {
+			t.Fatalf("Unexpected error: %s", err.Error())
+		}
+
+		if median != 78.67 {
+			t.Fatalf("Incorrect median: %.2f", median)
+		}
+	})
+
+	t.Run("Empty list", func(t *testing.T) {
+		numbers := []float64{}
+		median, err := Median(numbers)
+
+		if err == nil || err.Error() != "List of numbers cannot be empty" {
+			t.Fatalf("Expected empty list error but got: %v", err)
+		}
+
+		if median != 0 {
+			t.Fatalf("Unexpected non zero avg: %.2f", median)
 		}
 	})
 }

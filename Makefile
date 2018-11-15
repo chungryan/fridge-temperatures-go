@@ -18,3 +18,6 @@ cibuild: clean deps
 
 test:
 	go test -coverprofile c.out -v ./...
+
+cover: test
+	go tool cover -html=c.out
