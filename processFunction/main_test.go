@@ -177,4 +177,24 @@ func TestHandler(t *testing.T) {
 			}
 		}
 	})
+
+	t.Run("No readings", func(t *testing.T) {
+		request := events.APIGatewayProxyRequest{
+			Body: "[]",
+		}
+
+		response, err := handler(request)
+
+		if err != nil {
+			t.Fatalf("Unexpected error: %s", err.Error())
+		}
+
+		if response.StatusCode != 200 {
+			t.Fatalf("Incorrect status code: %d", response.StatusCode)
+		}
+
+		if response.Body != "[]" {
+			t.Fatalf("Incorrect response: %s", response.Body)
+		}
+	})
 }
