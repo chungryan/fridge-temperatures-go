@@ -42,13 +42,13 @@ Resources:
               produces:
                 - application/json
               responses:
-                200:
+                '200':
                   description: List of statistic figures for the given input readings
                   schema:
                     $ref: '#/definitions/StatList'
-                400:
+                '400':
                   description: An error occured
-                500:
+                '500':
                   description: Unexpected error
         definitions:
           Readings:
