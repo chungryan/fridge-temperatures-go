@@ -21,3 +21,22 @@ test:
 
 cover: test
 	go tool cover -html=c.out
+
+package:
+	aws cloudformation package \
+        --template-file cloudformation.yml \
+        --output-template-file packaged.yml \
+        --s3-bucket ${AWS_BUCKET} \
+		--s3-prefix FridgeTemperatureSensors
+
+deploy:
+	aws cloudformation deploy \
+		--region ap-southeast-2 \
+		--template-file packaged.yml \
+		--stack-name FridgeTemperatureSensors \
+		--capabilities CAPABILITY_IAM
+
+publish: cibuild package deploy
+
+local-invoke: cibuild
+	sam local invoke ProcessFunction -t cloudformation.yml -e event.json

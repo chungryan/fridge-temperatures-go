@@ -1,0 +1,55 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: Fridge Temperature Sensors
+Globals:
+  Function:
+    Timeout: 10
+Outputs:
+  ApiUrl:
+    Description: API Base URL
+    Value:
+      Fn::Join:
+      - ''
+      - - https://
+        - Ref: ApiGatewayApis
+        - .execute-api.
+        - Ref: AWS::Region
+        - .amazonaws.com
+  ProcessFunction:
+    Description: Process function
+    Value:
+      Ref: ProcessFunction
+Resources:
+  ApiGatewayApis:
+    Properties:
+      DefinitionBody:
+        info:
+          title:
+            Ref: AWS::StackName
+        paths:
+          /readings:
+            post:
+              responses: {}
+              x-amazon-apigateway-integration:
+                httpMethod: POST
+                type: aws_proxy
+                uri:
+                  Fn::Sub: arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${ProcessFunction.Arn}/invocations
+        swagger: 2.0
+      StageName: Latest
+    Type: AWS::Serverless::Api
+  ProcessFunction:
+    Properties:
+      CodeUri: s3://chungrya/FridgeTemperatureSensors/d1cf244c6cca02ed091581b866f0f130
+      Environment: null
+      Events:
+        Api:
+          Properties:
+            Method: POST
+            Path: /readings
+            RestApiId:
+              Ref: ApiGatewayApis
+          Type: Api
+      Handler: processFunction
+      Runtime: go1.x
+    Type: AWS::Serverless::Function
+Transform: AWS::Serverless-2016-10-31
