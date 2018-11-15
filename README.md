@@ -32,7 +32,7 @@ The output would then be:
 
 ### Requirements
 
-Working on this project requires certain dependencies:
+Working on this project requires certain dependancies:
 - Golang [https://golang.org/dl/]
 - AWS CLI (for testing) [https://aws.amazon.com/cli/]
 - AWS SAM (for testing) [https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-sam-cli-install.html]
@@ -168,3 +168,7 @@ On top of the enhanced logging, and especially if this microservice starts havin
 ### Security
 
 `https://n4algq1vc1.execute-api.ap-southeast-2.amazonaws.com/Latest/readings` is actually currently live as of 16 Nov 2018. Nothing prevents you from hammering the API. And that is because there is absolutely no security. A simple API key would do the job. We can even make it required to have the payload signed, with the signature sent as a header. Plenty of solutions here.
+
+### CircleCI Docker image
+
+I'm currently using a CircleCI prebuild Docker image for Golang. However this image does not have AWS CLI installed, which is why is in the CircleCI configs, making the build a little bit more time consuming. That could be easily improved by making a new image with this dependancy installed.
