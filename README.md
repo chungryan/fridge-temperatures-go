@@ -43,6 +43,16 @@ Working on this project requires certain dependancies:
 
 Not much really.
 
+### Installation
+
+You then need to make sure you clone the project in a folder that goes with your Go environment configurations, mostly `GOPATH`.
+With default conigurations, that means the project should be placed in `${HOME}/go/src/github.com/chungryan/fridge-temperatures-go`
+
+Then from the root folder of the project, install the Go dependencies:
+```bash
+make deps
+```
+
 ### Unit testing & Code Coverage
 
 To run the unit test, all you have to do is running the following:
